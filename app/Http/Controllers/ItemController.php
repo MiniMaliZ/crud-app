@@ -12,8 +12,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
-        return view ('items.index', compact('items'));
+        $items = Item::all(); // Mengambil semua data yang ada di Item
+        return view ('items.index', compact('items')); // Menampilkan view yang ada di items.index dengan data-data items
     }
 
     /**
@@ -21,7 +21,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('items.create');
+        return view('items.create'); // Menampilkan view yang ada di items.create untuk membuat data-data baru
     }
 
     /**
@@ -32,14 +32,14 @@ class ItemController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-        ]);
+        ]); // Mensetting agar input name dan description harus diisi
         
         //Item :: create($request->all());
         //return redirect()->route('items.index');
         
         // Hanya masukkan atribut yang diizinkan
-        Item::create($request->only(['name', 'description']));
-        return redirect()->route('items.index')->with('success', 'Item added successfully.');
+        Item::create($request->only(['name', 'description'])); // Menyimpan data ke databse
+        return redirect()->route('items.index')->with('success', 'Item added successfully.'); // Untuk memunculkan Notifikasi ketika data berhasil ditambahkan
     }
 
     /**
@@ -47,7 +47,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return view('items.show', compact('item'));
+        return view('items.show', compact('item')); // Menampilkan view yang ada di items.show dengan data-data items
     }
 
     /**
@@ -55,7 +55,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        return view('items.edit', compact('item'));
+        return view('items.edit', compact('item')); // Menampilkan view yang ada di items.edit untuk edit data item tertentu
     }
 
     /**
@@ -66,13 +66,13 @@ class ItemController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-        ]);
+        ]); // Mensetting agar input name dan description harus diisi
             
         //$item->update($request->all());
         //return redirect()->route('items.index');
         // Hanya masukkan atribut yang diizinkan
-        $item->update($request->only(['name', 'description']));
-        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
+        $item->update($request->only(['name', 'description'])); // Mengupdate data item ke dalam database
+        return redirect()->route('items.index')->with('success', 'Item updated successfully.'); // Untuk memunculkan Notifikasi ketika data berhasil ditambahkan
     }
 
     /**
@@ -80,7 +80,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        $item -> delete();
-        return redirect()->route('items.index')->with('success', 'Item deleted successfully.');
+        $item -> delete(); // Menghapus data item yang ada di databse
+        return redirect()->route('items.index')->with('success', 'Item deleted successfully.'); // Untuk memunculkan Notifikasi ketika data berhasil ditambahkan
     }
 }
